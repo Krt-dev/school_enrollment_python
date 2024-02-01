@@ -1,87 +1,88 @@
 class Student:
-    def __init__(self, StudentId, FirstName, LastName, Course, YearLevel):
-        self.StudentId = StudentId
-        self.FirstName = FirstName
-        self.LastName = LastName
-        self.Course = Course
-        self.YearLevel = YearLevel
+    def __init__(self, student_id, first_name, last_name, course, year_level):
+        self.student_id = student_id
+        self.first_name = first_name
+        self.last_name = last_name
+        self.course = course
+        self.year_level = year_level
 
-    @staticmethod
-    def willGraduate(YearLevel):
-        if YearLevel == 4:
-            return True
-        return False
-        
-    @staticmethod
-    def isDelayed(YearLevel):
-        if YearLevel >= 5:
-            return True
-        return False
+    def will_graduate(self):
+        return self.year_level == 4
 
-    @staticmethod    
-    def hasOOP(YearLevel):
-        if YearLevel == 2:
-            return True
-        return False
+    def has_oop(self):
+        return self.year_level == 2
     
-    @staticmethod
-    def enrollStudent():
-        studID = input("Please enter Student ID: ")
-        firstName = input("Please enter First Name: ")
-        lastName = input("Please enter Last Name: ")
-        course = input("Please enter Course: ")
-        yearLevel = input("Please enter Year Level: ")
-        s1 = Student(studID, firstName, lastName, course, yearLevel)
-        return s1
-        
-        
+    def is_delayed(self):
+        return self.year_level >= 5
+
+def enroll_student():
+    student_id = input("--Pls enter Student ID: ")
+    first_name = input("--Pls enter First Name: ")
+    last_name = input("--Pls enter Last Name: ")
+    course = input("--Pls enter Course: ")
+    year_level = int(input("--Pls enter Year Level: "))
+    return Student(student_id, first_name, last_name, course, year_level)
+    
 def main():
-    studentsList = []
+    students_list = []
 
     while True:
+        print("\n")
         print("\nMenu:")
         print("1.) Enroll Student")
         print("2.) View Student list")
-        print("3.) Will Student graduate")
-        print("4.) Does Student have OOP")
-        print("5.) Exit")
+        print("3.) Will student graduate?")
+        print("4.) Has student taken OOP?")
+        print("5.) Is student delayed?")
+        print("6.) Exit")
 
         user_input = input("Please enter a number: ")
         number = int(user_input)
-        ##print("You entered the number: ", number)
+        print("\n")
 
         if number == 1:
-            s1 = Student.enrollStudent()
-            studentsList.append(s1)
+            student = enroll_student()
+            students_list.append(student)
             print("Student is enrolled!")
         elif number == 2:
-            for student in studentsList:
-                print(f"ID: {student.StudentId}, Name: {student.FirstName} {student.LastName}, Course: {student.Course}, Year Level: {student.YearLevel}")
+            for student in students_list:
+                print(f"ID: {student.student_id}, Name: {student.first_name} {student.last_name}, Course: {student.course}, Year Level: {student.year_level}")
         elif number == 3:
             student_id = input("Enter Student ID: ")
-            for student in studentsList:
-                if student.StudentId == student_id:
-                    if Student.willGraduate(int(student.YearLevel)):
+            for student in students_list:
+                if student.student_id == student_id:
+                    if student.will_graduate():
                         print("Student will graduate.")
                     else:
                         print("Student will not graduate.")
                     break
             else:
-                print("Student not found.")
+                print("Student does not exist.")
         elif number == 4:
             student_id = input("Enter Student ID: ")
-            for student in studentsList:
-                if student.StudentId == student_id:
-                    if Student.hasOOP(int(student.YearLevel)):
+            for student in students_list:
+                if student.student_id == student_id:
+                    if student.has_oop():
                         print("Student has taken OOP.")
                     else:
                         print("Student has not taken OOP.")
                     break
             else:
-                print("Student not found.")
+                print("Student does not exist.")
         elif number == 5:
-            print("Exiting program...")
-            break
+            student_id = input("Enter Student ID: ")
+            for student in students_list:
+                if student.student_id == student_id:
+                    if student.is_delayed():
+                        print("Student is delayed.")
+                    else:
+                        print("Student is not delayed.")
+                    break
+            else:
+                print("Student does not exist.")
+        elif number == 6:
+            print("Okay bye!")
+            break    
 
 
 if __name__ == "__main__":
