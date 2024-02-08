@@ -18,7 +18,7 @@ class Student:
     
     def soludKlasi(self):
         self.gpa += 1
-        return self.gpa
+       
 
 class StudentLeader(Student):
     def __init__(self,student_id, first_name, last_name, course, year_level, gpa ,orgName, position):
@@ -32,7 +32,7 @@ class StudentLeader(Student):
         return False
     
     def attendEvent(self):
-        print("I am a representative of an " + self.orgName)
+        print("Student " + self.student_id + " Is a representative of " + self.orgName + " as a " + self.position)
 
 class READS(Student):
     def __init__(self, student_id, first_name, last_name, course, year_level, gpa, officeDuty):
@@ -43,7 +43,7 @@ class READS(Student):
         return self.year_level == 5
     
     def duty(self):
-        print("I am working at " + self.officeDuty)
+        print(" Student " + self.student_id + " Is working as a/an " + self.officeDuty)
 
 
 def enroll_student():
@@ -52,7 +52,7 @@ def enroll_student():
     last_name = input("--Pls enter Last Name: ")
     course = input("--Pls enter Course: ")
     year_level = int(input("--Pls enter Year Level: "))
-    gpa = input("--What is your current gpa?")
+    gpa = int(input("--What is your current gpa?"))
     return Student(student_id, first_name, last_name, course, year_level, gpa)
 
 def enroll_READS():
@@ -61,7 +61,7 @@ def enroll_READS():
     last_name = input("--Pls enter Last Name: ")
     course = input("--Pls enter Course: ")
     year_level = int(input("--Pls enter Year Level: "))
-    gpa = input("--What is your current gpa?")
+    gpa = int(input("--What is your current gpa?"))
     office_duty = input("--Where do you work?")
     return READS(student_id, first_name, last_name, course, year_level, gpa, office_duty)
 
@@ -71,7 +71,7 @@ def enroll_studentLeader():
     last_name = input("--Pls enter Last Name: ")
     course = input("--Pls enter Course: ")
     year_level = int(input("--Pls enter Year Level: "))
-    gpa = input("--What is your current gpa?")
+    gpa = int(input("--What is your current gpa?"))
     position = input("--What is your position?")
     org_Name = input("--What is the name of your Org?")
     return StudentLeader(student_id, first_name, last_name, course, year_level, gpa, org_Name, position)
@@ -91,6 +91,8 @@ def main():
         print("7.) Enroll as READS")
         print("8.) Enroll as Student leader")
         print("9.) Raise GPA")
+        print("10.) What is Student leader a representative of?")
+        print("11.) What is student READS office duty?")
 
         user_input = input("Please enter a number: ")
         number = int(user_input)
@@ -156,10 +158,24 @@ def main():
             student_id = input("Enter Student ID: ")
             for student in students_list:
                 if student.student_id == student_id:
-                    student = student.soludKlasi()
+                    student.soludKlasi()
                     print("Student GPA has raised by 1 point!")
-            else:
-                print("Student does not exist.")
+                else:
+                    print("Student does not exist.")
+        elif number == 10:
+            student_id = input("Enter Student ID: ")
+            for student in students_list:
+                if student.student_id == student_id and isinstance(student, StudentLeader):
+                    student.attendEvent()
+                else:
+                    print("Student does not exist.")
+        elif number == 11:
+            student_id = input("Enter Student ID: ")
+            for student in students_list:
+                if student.student_id == student_id and isinstance(student, READS):
+                    student.duty()
+                else:
+                    print("Student does not exist.")
 
 
 
